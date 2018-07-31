@@ -1,9 +1,9 @@
-//Dependencies
+//NPM Packages use npm i 'package name'
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 const Table = require('cli-table');
 
-//Connection
+//Connection with MYSQL - super secret password is "root" - Don't tell anyone
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -12,30 +12,29 @@ const connection = mysql.createConnection({
     database: "Bamazon"
 });
 
-//Functions
+//Functions - i will use long completely unnecessary function names, coz i am on my fourth beer and its 11pm..
 function displayStuffandOtherthings() {
-    //show all ids, names, and products from database.
-    connection.query('SELECT * FROM Products', function(error, response) {
-        if (error) { console.log(error) };
-        //New instance of our constructor
+    connection.query('SELECT * FROM Products', function (error, response) {
+        if (error) {
+            console.log(error)
+        };
         const TableDisplayMagic = new Table({
-            //declare the value categories
             head: ['Item ID', 'Product Name', 'Category', 'Price', 'Quantity'],
-            //set widths to scale
+            //setting widths to scale
             colWidths: [10, 30, 18, 10, 14]
         });
         //for each row of the loop
         for (i = 0; i < response.length; i++) {
-            //push data to table
+            //pushing data to table
             TableDisplayMagic.push(
                 [response[i].ItemID, response[i].ProductName, response[i].DepartmentName, response[i].Price, response[i].StockQuantity]
             );
         }
-        //log the completed table to console
+        //logging the completed table to console
         console.log(TableDisplayMagic.toString());
         AskforUpdates();
     });
-}; //end displayStuffandOtherthings
+}; //end of the function displayStuffandOtherthings
 
 function AskforUpdates() {
     //inquire for input
@@ -44,7 +43,7 @@ function AskforUpdates() {
         type: "list",
         message: "Choose an option below to manage your store:",
         choices: ["Restock Inventory", "Add New Product", "Remove An Existing Product"]
-    }]).then(function(answers) {
+    }]).then(function (answers) {
         //select user response, launch corresponding function
         switch (answers.action) {
 
@@ -61,10 +60,10 @@ function AskforUpdates() {
                 break;
         }
     });
-}; //end AskforUpdates
+}; //end of the function  AskforUpdates
 
 function restockRequest() {
-    //gather data from user
+    //gathering data from user
     inquirer.prompt([
 
         {
@@ -77,8 +76,7 @@ function restockRequest() {
             message: "How many would you like to add?"
         },
 
-    ]).then(function(answers) {
-        //set captured input as constiables, pass constiables as parameters.
+    ]).then(function (answers) {
         const quantityAdded = answers.Quantity;
         const IDOfProduct = answers.ID;
         restockDatabase(IDOfProduct, quantityAdded);
@@ -88,8 +86,10 @@ function restockRequest() {
 //runs on user parameters from the request function
 function restockDatabase(id, quant) {
     //update the database
-    connection.query('SELECT * FROM Products WHERE ItemID = ' + id, function(error, response) {
-        if (error) { console.log(error) };
+    connection.query('SELECT * FROM Products WHERE ItemID = ' + id, function (error, response) {
+        if (error) {
+            console.log(error)
+        };
         connection.query('UPDATE Products SET StockQuantity = StockQuantity + ' + quant + ' WHERE ItemID = ' + id);
         //re-run display to show updated results
         displayStuffandOtherthings();
@@ -120,38 +120,38 @@ function addRequest() {
             message: "How many would you like to add?"
         },
 
-    ]).then(function(answers){
+    ]).then(function (answers) {
         //gather user input, store as constiables, pass as parameters
-    	const name = answers.Name;
-    	const category = answers.Category;
-    	const price = answers.Price;
-    	const quantity = answers.Quantity;
-    	buildNewItem(name,category,price,quantity);
+        const name = answers.Name;
+        const category = answers.Category;
+        const price = answers.Price;
+        const quantity = answers.Quantity;
+        buildNewItem(name, category, price, quantity);
     });
 }; //end addRequest
 
-function buildNewItem(name,category,price,quantity){
+function buildNewItem(name, category, price, quantity) {
     //query database, insert new item
-	connection.query('INSERT INTO Products (ProductName,DepartmentName,Price,StockQuantity) VALUES("' + name + '","' + category + '",' + price + ',' + quantity +  ')');
+    connection.query('INSERT INTO Products (ProductName,DepartmentName,Price,StockQuantity) VALUES("' + name + '","' + category + '",' + price + ',' + quantity + ')');
     //display updated results
-	displayStuffandOtherthings();
+    displayStuffandOtherthings();
 
-};//end buildNewItem
+}; //end buildNewItem
 
-function removeRequest(){
+function removeRequest() {
     inquirer.prompt([{
-            name: "ID",
-            type: "input",
-            message: "What is the item number of the item you wish to remove?"
-        }]).then(function(answer){
-        	const id = answer.ID;
-        	removeFromDatabase(id);
-        });
-};//end removeRequest
+        name: "ID",
+        type: "input",
+        message: "What is the item number of the item you wish to remove?"
+    }]).then(function (answer) {
+        const id = answer.ID;
+        removeFromDatabase(id);
+    });
+}; //end removeRequest
 
-function removeFromDatabase(id){
-	connection.query('DELETE FROM Products WHERE ItemID = ' + id);
-	displayStuffandOtherthings();
-};//end removeFromDatabase
+function removeFromDatabase(id) {
+    connection.query('DELETE FROM Products WHERE ItemID = ' + id);
+    displayStuffandOtherthings();
+}; //end removeFromDatabase
 
 displayStuffandOtherthings();
