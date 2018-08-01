@@ -1,11 +1,29 @@
 # JAG_BAmazon-Node-App
 
+# Store View 
+
+User Wants to purchase 100 items of item number 5.. Screen shot below shows the app reducing the quantity in the database accordingly..
 
 <img width="930" alt="screen shot 2018-07-31 at 6 43 04 pm" src="https://user-images.githubusercontent.com/27736403/43493245-98a794be-94f2-11e8-88d9-47b1efdc3882.png">
-<img width="924" alt="screen shot 2018-07-31 at 6 43 39 pm" src="https://user-images.githubusercontent.com/27736403/43493248-98d3638c-94f2-11e8-9820-1449254a5492.png">
-<img width="927" alt="screen shot 2018-07-31 at 6 44 08 pm" src="https://user-images.githubusercontent.com/27736403/43493246-98b60bb6-94f2-11e8-90fb-51a6aa4ee02c.png">
+
+
+
+
+# Manager View 
+
+## Restock Inventory 
+
+
+
 <img width="922" alt="screen shot 2018-07-31 at 6 43 58 pm" src="https://user-images.githubusercontent.com/27736403/43493247-98c51318-94f2-11e8-85aa-d4252adf1733.png">
 
+
+<img width="924" alt="screen shot 2018-07-31 at 6 43 39 pm" src="https://user-images.githubusercontent.com/27736403/43493248-98d3638c-94f2-11e8-9820-1449254a5492.png">
+
+
+
+<img width="924" alt="screen shot 2018-07-31 at 7 13 02 pm" src="https://user-images.githubusercontent.com/27736403/43493907-dab627e6-94f5-11e8-86bb-1e0f33f085cd.png">
+<img width="925" alt="screen shot 2018-07-31 at 7 12 52 pm" src="https://user-images.githubusercontent.com/27736403/43493908-dac5476c-94f5-11e8-8476-9aded2119a94.png">
 
 
 
